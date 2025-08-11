@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Convocatoria Nacional 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #8A2BE2;
+            --secondary-green: #28a745;
+            --dark-bg: #1e1e2f;
+            --card-bg: #2c2c44;
+            --text-color: #f0f0f0;
+            --text-muted: #a0a0b0;
+            --border-color: #4a4a6a;
+            --hover-bg: #3a3a5a;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 24px;
+            font-size: 16px;
+        }
+
+        .dashboard-container {
+            max-width: 1600px;
+            margin: auto;
+            display: grid;
+            gap: 24px;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary-purple);
+            text-align: center;
+        }
+
+        header h1 { margin: 0; color: #fff; font-weight: 700; }
+        header p { margin: 5px 0 0; color: var(--text-muted); }
+
+        .kpi-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .kpi-card {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .kpi-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .kpi-card .kpi-title { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 12px; font-weight: 400; }
+        .kpi-card .kpi-value { font-size: 1.8rem; font-weight: 700; color: var(--secondary-green); }
+
+        .dashboard-section {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .dashboard-section h2 { margin-top: 0; border-bottom: 2px solid var(--primary-purple); padding-bottom: 10px; font-size: 1.5rem; color: #fff; }
+
+        .proposals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        details { background-color: var(--dark-bg); border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
+        summary {
+            padding: 15px; font-weight: 500; cursor: pointer; background-color: var(--hover-bg);
+            color: var(--text-color); list-style: none; display: flex; justify-content: space-between; align-items: center;
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary:after { content: '▼'; font-size: 0.8em; transition: transform 0.2s; }
+        details[open] > summary:after { transform: rotate(180deg); }
+        details .content { padding: 15px; max-height: 300px; overflow-y: auto;}
+        details ul { list-style-type: none; padding-left: 0; margin: 0; }
+        details li { padding: 8px 5px; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); font-size: 0.95em; }
+        details li:last-child { border-bottom: none; }
+        details .li-value { font-weight: 700; color: var(--secondary-green); padding-left: 10px; }
+
+        .table-wrapper { overflow-x: auto; margin-top: 15px; }
+        .proposer-table { width: 100%; border-collapse: collapse; }
+        .proposer-table th, .proposer-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); white-space: nowrap; }
+        .proposer-table thead th { background-color: var(--hover-bg); color: var(--text-color); font-weight: 500; position: sticky; top: 0; z-index: 10; }
+        .proposer-table tbody tr:hover { background-color: var(--hover-bg); }
+        .proposer-table .numeric-cell { text-align: right; }
+        .proposer-table .value-currency { font-family: monospace; text-align: right; }
+        .proposer-table .proponent-name { font-weight: 500; }
+        .proposer-table tfoot tr {
+            background-color: var(--dark-bg);
+            font-weight: 700;
+        }
+        .proposer-table tfoot td {
+            border-top: 2px solid var(--primary-purple);
+            color: var(--text-color);
+        }
+        
+        .note { background-color: rgba(138, 43, 226, 0.1); border-left: 4px solid var(--primary-purple); padding: 15px; margin: 0 0 15px; border-radius: 4px; color: var(--text-muted); font-size: 0.9em; }
+        .note b { color: var(--text-color); }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <header>
+            <h1>Dashboard de Propuestas – Convocatoria Nacional 2025</h1>
+            <p>Resumen Ejecutivo para el Secretario General</p>
+        </header>
+
+        <div class="kpi-container">
+            <div class="kpi-card"><div class="kpi-title">💰 Costo Total de la Propuesta</div><div class="kpi-value">$1,154 M</div></div>
+            <div class="kpi-card"><div class="kpi-title">💸 Ajuste Presupuestal 2025</div><div class="kpi-value">$743.2 M</div></div>
+            <div class="kpi-card"><div class="kpi-title">📂 Propuestas Presentadas</div><div class="kpi-value">50</div></div>
+            <div class="kpi-card"><div class="kpi-title">📈 Acciones Específicas</div><div class="kpi-value">1,358</div></div>
+            <div class="kpi-card"><div class="kpi-title">👥 Equipos Territoriales</div><div class="kpi-value">19</div></div>
+        </div>
+        
+        <section class="dashboard-section">
+            <h2>👤 Consolidado General por Proponente</h2>
+            <p class="note"><b>Nota:</b> El proponente corresponde al Equipo Territorial (GITT) que presenta el conjunto de acciones. La tabla muestra el desglose completo por equipo.</p>
+            <div class="table-wrapper">
+                <table class="proposer-table">
+                    <thead>
+                        <tr>
+                            <th>Proponente</th>
+                            <th>Valor Total: Transporte, prácticas culturales y armonizaciones</th>
+                            <th>Ajuste Presupuestal 2025</th>
+                            <th>Total Acciones</th>
+                            <th>Toma Muestras</th>
+                            <th>Archivos Pers.</th>
+                            <th>Nuevas Solic.</th>
+                            <th>Solic. Actual.</th>
+                            <th>Cementerios</th>
+                            <th>Campo Abierto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="proponent-name">Antioquia</td><td class="value-currency">$38,433,484</td><td class="value-currency">$32,673,484</td><td class="numeric-cell">67</td><td class="numeric-cell">25</td><td class="numeric-cell">14</td><td class="numeric-cell">7</td><td class="numeric-cell">18</td><td class="numeric-cell">1</td><td class="numeric-cell">2</td></tr>
+                        <tr><td class="proponent-name">Boyacá</td><td class="value-currency">$27,266,482</td><td class="value-currency">$18,656,482</td><td class="numeric-cell">30</td><td class="numeric-cell">12</td><td class="numeric-cell">3</td><td class="numeric-cell">12</td><td class="numeric-cell">0</td><td class="numeric-cell">3</td><td class="numeric-cell">0</td></tr>
+                        <tr><td class="proponent-name">Casanare</td><td class="value-currency">$172,884,357</td><td class="value-currency">$95,004,357</td><td class="numeric-cell">172</td><td class="numeric-cell">34</td><td class="numeric-cell">44</td><td class="numeric-cell">46</td><td class="numeric-cell">0</td><td class="numeric-cell">0</td><td class="numeric-cell">2</td></tr>
+                        <tr><td class="proponent-name">Cauca</td><td class="value-currency">$32,397,995</td><td class="value-currency">$25,085,995</td><td class="numeric-cell">62</td><td class="numeric-cell">40</td><td class="numeric-cell">0</td><td class="numeric-cell">10</td><td class="numeric-cell">10</td><td class="numeric-cell">1</td><td class="numeric-cell">1</td></tr>
+                        <tr><td class="proponent-name">Cesar</td><td class="value-currency">$6,445,935</td><td class="value-currency">$5,605,935</td><td class="numeric-cell">16</td><td class="numeric-cell">0</td><td class="numeric-cell">0</td><td class="numeric-cell">0</td><td class="numeric-cell">15</td><td class="numeric-cell">0</td><td class="numeric-cell">1</td></tr>
+                        <tr><td class="proponent-name">Chocó</td><td class="value-currency">$62,244,080</td><td class="value-currency">$43,914,080</td><td class="numeric-cell">22</td><td class="numeric-cell">2</td><td class="numeric-cell">0</td><td class="numeric-cell">0</td><td class="numeric-cell">14</td><td class="numeric-cell">2</td><td class="numeric-cell">4</td></tr>
+                        <tr><td class="proponent-name">Córdoba</td><td class="value-currency">$62,386,541</td><td class="value-currency">$48,466,541</td><td class="numeric-cell">27</td><td class="numeric-cell">1</td><td class="numeric-cell">10</td><td class="numeric-cell">6</td><td class="numeric-cell">5</td><td class="numeric-cell">2</td><td class="numeric-cell">3</td></tr>
+                        <tr><td class="proponent-name">Eje Cafetero</td><td class="value-currency">$61,815,614</td><td class="value-currency">$39,443,514</td><td class="numeric-cell">95</td><td class="numeric-cell">33</td><td class="numeric-cell">3</td><td class="numeric-cell">28</td><td class="numeric-cell">26</td><td class="numeric-cell">1</td><td class="numeric-cell">4</td></tr>
+                        <tr><td class="proponent-name">Guaviare</td><td class="value-currency">$48,797,385</td><td class="value-currency">$33,375,385</td><td class="numeric-cell">82</td><td class="numeric-cell">22</td><td class="numeric-cell">9</td><td class="numeric-cell">37</td><td class="numeric-cell">10</td><td class="numeric-cell">1</td><td class="numeric-cell">3</td></tr>
+                        <tr><td class="proponent-name">Magdalena</td><td class="value-currency">$65,342,661</td><td class="value-currency">$57,192,661</td><td class="numeric-cell">124</td><td class="numeric-cell">33</td><td class="numeric-cell">25</td><td class="numeric-cell">27</td><td class="numeric-cell">33</td><td class="numeric-cell">1</td><td class="numeric-cell">5</td></tr>
+                        <tr><td class="proponent-name">Meta</td><td class="value-currency">$4,485,290</td><td class="value-currency">$3,737,290</td><td class="numeric-cell">11</td><td class="numeric-cell">0</td><td class="numeric-cell">0</td><td class="numeric-cell">0</td><td class="numeric-cell">10</td><td class="numeric-cell">0</td><td class="numeric-cell">1</td></tr>
+                        <tr><td class="proponent-name">Nariño</td><td class="value-currency">$50,766,819</td><td class="value-currency">$42,361,819</td><td class="numeric-cell">72</td><td class="numeric-cell">20</td><td class="numeric-cell">20</td><td class="numeric-cell">24</td><td class="numeric-cell">5</td><td class="numeric-cell">0</td><td class="numeric-cell">3</td></tr>
+                        <tr><td class="proponent-name">Nariño-Tumaco</td><td class="value-currency">$41,914,127</td><td class="value-currency">$34,464,127</td><td class="numeric-cell">37</td><td class="numeric-cell">18</td><td class="numeric-cell">2</td><td class="numeric-cell">6</td><td class="numeric-cell">3</td><td class="numeric-cell">6</td><td class="numeric-cell">2</td></tr>
+                        <tr><td class="proponent-name">Norte de Santander</td><td class="value-currency">$25,866,760</td><td class="value-currency">$17,066,760</td><td class="numeric-cell">47</td><td class="numeric-cell">0</td><td class="numeric-cell">0</td><td class="numeric-cell">25</td><td class="numeric-cell">20</td><td class="numeric-cell">1</td><td class="numeric-cell">1</td></tr>
+                        <tr><td class="proponent-name">Putumayo</td><td class="value-currency">$176,137,733</td><td class="value-currency">$31,447,733</td><td class="numeric-cell">71</td><td class="numeric-cell">23</td><td class="numeric-cell">0</td><td class="numeric-cell">44</td><td class="numeric-cell">0</td><td class="numeric-cell">0</td><td class="numeric-cell">4</td></tr>
+                        <tr><td class="proponent-name">Santander</td><td class="value-currency">$26,437,694</td><td class="value-currency">$23,817,694</td><td class="numeric-cell">22</td><td class="numeric-cell">7</td><td class="numeric-cell">0</td><td class="numeric-cell">6</td><td class="numeric-cell">7</td><td class="numeric-cell">1</td><td class="numeric-cell">1</td></tr>
+                        <tr><td class="proponent-name">Sucre</td><td class="value-currency">$129,419,352</td><td class="value-currency">$103,494,352</td><td class="numeric-cell">306</td><td class="numeric-cell">142</td><td class="numeric-cell">3</td><td class="numeric-cell">48</td><td class="numeric-cell">105</td><td class="numeric-cell">3</td><td class="numeric-cell">5</td></tr>
+                        <tr><td class="proponent-name">Tolima</td><td class="value-currency">$72,703,872</td><td class="value-currency">$60,536,872</td><td class="numeric-cell">92</td><td class="numeric-cell">35</td><td class="numeric-cell">16</td><td class="numeric-cell">20</td><td class="numeric-cell">12</td><td class="numeric-cell">6</td><td class="numeric-cell">3</td></tr>
+                        <tr><td class="proponent-name">Uraba Región</td><td class="value-currency">$48,276,874</td><td class="value-currency">$26,889,874</td><td class="numeric-cell">43</td><td class="numeric-cell">16</td><td class="numeric-cell">11</td><td class="numeric-cell">13</td><td class="numeric-cell">7</td><td class="numeric-cell">1</td><td class="numeric-cell">1</td></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td><strong>Total General</strong></td>
+                            <td class="value-currency"><strong>$1,154,023,055</strong></td>
+                            <td class="value-currency"><strong>$743,234,955</strong></td>
+                            <td class="numeric-cell"><strong>1,358</strong></td>
+                            <td class="numeric-cell"><strong>463</strong></td>
+                            <td class="numeric-cell"><strong>160</strong></td>
+                            <td class="numeric-cell"><strong>359</strong></td>
+                            <td class="numeric-cell"><strong>300</strong></td>
+                            <td class="numeric-cell"><strong>30</strong></td>
+                            <td class="numeric-cell"><strong>46</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+
+        <section class="dashboard-section">
+            <h2>📑 Desglose de Acciones por Tipo (Lista Completa)</h2>
+            <div class="proposals-grid">
+                <!-- El contenido de esta sección no cambia, se mantiene como en la versión anterior -->
+                <details><summary>💧 Toma de Muestras (Total: 463)</summary><div class="content"><ul><li><span>Sucre</span><span class="li-value">142</span></li><li><span>Cauca</span><span class="li-value">40</span></li><li><span>Tolima</span><span class="li-value">35</span></li><li><span>Casanare</span><span class="li-value">34</span></li><li><span>Eje Cafetero</span><span class="li-value">33</span></li><li><span>Magdalena</span><span class="li-value">33</span></li><li><span>Antioquia</span><span class="li-value">25</span></li><li><span>Putumayo</span><span class="li-value">23</span></li><li><span>Guaviare</span><span class="li-value">22</span></li><li><span>Nariño</span><span class="li-value">20</span></li><li><span>Nariño - Tumaco</span><span class="li-value">18</span></li><li><span>Uraba Región</span><span class="li-value">16</span></li><li><span>Boyacá</span><span class="li-value">12</span></li><li><span>Santander</span><span class="li-value">7</span></li><li><span>Chocó</span><span class="li-value">2</span></li><li><span>Cordoba</span><span class="li-value">1</span></li></ul></div></details>
+                <details><summary>📝 Nuevas Solicitudes (Total: 359)</summary><div class="content"><ul><li><span>Sucre</span><span class="li-value">48</span></li><li><span>Casanare</span><span class="li-value">46</span></li><li><span>Putumayo</span><span class="li-value">44</span></li><li><span>Guaviare</span><span class="li-value">37</span></li><li><span>Eje Cafetero</span><span class="li-value">28</span></li><li><span>Magdalena</span><span class="li-value">27</span></li><li><span>Norte de Santander</span><span class="li-value">25</span></li><li><span>Nariño</span><span class="li-value">24</span></li><li><span>Tolima</span><span class="li-value">20</span></li><li><span>Uraba Región</span><span class="li-value">13</span></li><li><span>Boyacá</span><span class="li-value">12</span></li><li><span>Cauca</span><span class="li-value">10</span></li><li><span>Antioquia</span><span class="li-value">7</span></li><li><span>Cordoba</span><span class="li-value">6</span></li><li><span>Nariño - Tumaco</span><span class="li-value">6</span></li><li><span>Santander</span><span class="li-value">6</span></li></ul></div></details>
+                <details><summary>🔄 Solicitud Actualizada (Total: 300)</summary><div class="content"><ul><li><span>Sucre</span><span class="li-value">105</span></li><li><span>Magdalena</span><span class="li-value">33</span></li><li><span>Eje Cafetero</span><span class="li-value">26</span></li><li><span>Norte de Santander</span><span class="li-value">20</span></li><li><span>Antioquia</span><span class="li-value">18</span></li><li><span>Cesar</span><span class="li-value">15</span></li><li><span>Chocó</span><span class="li-value">14</span></li><li><span>Tolima</span><span class="li-value">12</span></li><li><span>Cauca</span><span class="li-value">10</span></li><li><span>Guaviare</span><span class="li-value">10</span></li><li><span>Meta</span><span class="li-value">10</span></li><li><span>Santander</span><span class="li-value">7</span></li><li><span>Uraba Región</span><span class="li-value">7</span></li><li><span>Cordoba</span><span class="li-value">5</span></li><li><span>Nariño</span><span class="li-value">5</span></li><li><span>Nariño - Tumaco</span><span class="li-value">3</span></li></ul></div></details>
+                <details><summary>📂 Archivos Personales (Total: 160)</summary><div class="content"><ul><li><span>Casanare</span><span class="li-value">44</span></li><li><span>Magdalena</span><span class="li-value">25</span></li><li><span>Nariño</span><span class="li-value">20</span></li><li><span>Tolima</span><span class="li-value">16</span></li><li><span>Antioquia</span><span class="li-value">14</span></li><li><span>Uraba Región</span><span class="li-value">11</span></li><li><span>Cordoba</span><span class="li-value">10</span></li><li><span>Guaviare</span><span class="li-value">9</span></li><li><span>Boyacá</span><span class="li-value">3</span></li><li><span>Sucre</span><span class="li-value">3</span></li><li><span>Nariño - Tumaco</span><span class="li-value">2</span></li></ul></div></details>
+                <details><summary>🏞️ Campo Abierto (Total: 46)</summary><div class="content"><ul><li><span>Magdalena</span><span class="li-value">5</span></li><li><span>Sucre</span><span class="li-value">5</span></li><li><span>Chocó</span><span class="li-value">4</span></li><li><span>Eje Cafetero</span><span class="li-value">4</span></li><li><span>Putumayo</span><span class="li-value">4</span></li><li><span>Cordoba</span><span class="li-value">3</span></li><li><span>Guaviare</span><span class="li-value">3</span></li><li><span>Nariño</span><span class="li-value">3</span></li><li><span>Tolima</span><span class="li-value">3</span></li><li><span>Antioquia</span><span class="li-value">2</span></li><li><span>Casanare</span><span class="li-value">2</span></li><li><span>Nariño - Tumaco</span><span class="li-value">2</span></li><li><span>Cauca</span><span class="li-value">1</span></li><li><span>Cesar</span><span class="li-value">1</span></li><li><span>Meta</span><span class="li-value">1</span></li><li><span>Norte de Santander</span><span class="li-value">1</span></li><li><span>Santander</span><span class="li-value">1</span></li><li><span>Uraba Región</span><span class="li-value">1</span></li></ul></div></details>
+                <details><summary>🪦 Cementerios (Total: 30)</summary><div class="content"><ul><li><span>Nariño - Tumaco</span><span class="li-value">6</span></li><li><span>Tolima</span><span class="li-value">6</span></li><li><span>Boyacá</span><span class="li-value">3</span></li><li><span>Sucre</span><span class="li-value">3</span></li><li><span>Chocó</span><span class="li-value">2</span></li><li><span>Cordoba</span><span class="li-value">2</span></li><li><span>Antioquia</span><span class="li-value">1</span></li><li><span>Cauca</span><span class="li-value">1</span></li><li><span>Eje Cafetero</span><span class="li-value">1</span></li><li><span>Guaviare</span><span class="li-value">1</span></li><li><span>Magdalena</span><span class="li-value">1</span></li><li><span>Norte de Santander</span><span class="li-value">1</span></li><li><span>Santander</span><span class="li-value">1</span></li><li><span>Uraba Región</span><span class="li-value">1</span></li></ul></div></details>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
